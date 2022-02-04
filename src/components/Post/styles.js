@@ -1,15 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.article`
+  transition: 0.2s;
+  text-decoration: none;
+  cursor: pointer;
 
-transition: .2s;
-text-decoration: none;
-cursor: pointer;
-
-:hover {
-margin-top: -5px;
-filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.15));
-}
+  :hover {
+    margin-top: -5px;
+    filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.15));
+  }
 
   display: flex;
   justify-content: space-between;
@@ -24,6 +23,11 @@ filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.15));
   border-radius: 15px;
 
   margin: 30px;
+
+  @media screen and (max-width: 420px) {
+    width: 90vw;
+    margin: 30px 0;
+  }
 
   background-color: white;
 
@@ -53,8 +57,8 @@ filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.15));
     padding: 20px 20px;
 
     .author {
-      color: ${props => props.theme.colors.main};
-      font-size: .9rem;
+      color: ${(props) => props.theme.colors.main};
+      font-size: 0.9rem;
       font-weight: 600;
     }
 
@@ -69,7 +73,7 @@ filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.15));
       justify-content: space-between;
       font-weight: 400;
       color: #333;
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
 `;
