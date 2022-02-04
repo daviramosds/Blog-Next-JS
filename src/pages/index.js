@@ -8,29 +8,18 @@ import { Context } from "../Store";
 import { Banner, Posts } from "../styles/index";
 
 import api from "../services/api";
+import Loading from "../components/Loading";
+
+import { Fade, Zoom } from "react-reveal";
 
 export default function Home() {
   const [posts, setPosts] = useState();
   const [searchContent, setSearchContent] = useContext(Context);
   const [load, setLoad] = useState(false);
-  const [categories, setCategories] = useState(false)
 
   useEffect(async () => {
     try {
       const { data } = await api.get();
-
-      data.map((page) => {
-        let tags = page.properties.Tags.multi_select;
-
-        let tagsObject = [];
-
-        tags.forEach((tag) => {
-          if (!tagsObject.includes(tag))
-            tagsObject.push(tag.name.toUpperCase());
-        });
-
-        setCategories(tagsObject);
-      });
 
       setPosts(data);
     } catch (error) {
@@ -40,21 +29,24 @@ export default function Home() {
     setLoad(true);
   }, []);
 
-  if (load) {
     return (
       <>
-        <Header search={true} tags={categories} />
+      {
+        !load && <Loading />
+      }
+        <Header search={true} />
 
-        <Banner>
-          {searchContent ? (
-            <h1>{searchContent}</h1>
-          ) : (
-            <h1>
-              davirds<strong>.dev</strong>
-            </h1>
-          )}
-        </Banner>
-
+        <Zoom>
+          <Banner>
+            {searchContent ? (
+              <h1>{searchContent}</h1>
+            ) : (
+              <h1>
+                davirds<strong>.dev</strong>
+              </h1>
+            )}
+          </Banner>
+        </Zoom>
         <Posts>
           {searchContent
             ? posts.map((page) => {
@@ -73,15 +65,21 @@ export default function Home() {
                   });
 
                   return (
-                    <Post
-                      creator={page.properties.Creator.rich_text[0].plain_text}
-                      title={page.properties.Name.title[0].plain_text}
-                      tags={tagsObject}
-                      date={new Date(date).toDateString()}
-                      thumb={page.properties.Thumbnail.rich_text[0].plain_text}
-                      id={page.id}
-                      key={page.id}
-                    />
+                    <Fade>
+                      <Post
+                        creator={
+                          page.properties.Creator.rich_text[0].plain_text
+                        }
+                        title={page.properties.Name.title[0].plain_text}
+                        tags={tagsObject}
+                        date={new Date(date).toDateString()}
+                        thumb={
+                          page.properties.Thumbnail.rich_text[0].plain_text
+                        }
+                        id={page.id}
+                        key={page.id}
+                      />
+                    </Fade>
                   );
                 }
               })
@@ -99,21 +97,20 @@ export default function Home() {
                 });
 
                 return (
-                  <Post
-                    key={page.id}
-                    creator={page.properties.Creator.rich_text[0].plain_text}
-                    title={page.properties.Name.title[0].plain_text}
-                    tags={tagsObject}
-                    date={new Date(date).toDateString()}
-                    thumb={page.properties.Thumbnail.rich_text[0].plain_text}
-                    id={page.id}
-                  />
+                  <Fade>
+                    <Post
+                      key={page.id}
+                      creator={page.properties.Creator.rich_text[0].plain_text}
+                      title={page.properties.Name.title[0].plain_text}
+                      tags={tagsObject}
+                      date={new Date(date).toDateString()}
+                      thumb={page.properties.Thumbnail.rich_text[0].plain_text}
+                      id={page.id}
+                    />
+                  </Fade>
                 );
               })}
         </Posts>
       </>
     );
-  } else {
-    return <span>loading...</span>;
-  }
 }

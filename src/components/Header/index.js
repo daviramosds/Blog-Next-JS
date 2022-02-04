@@ -45,7 +45,7 @@ function Header({ search=true, tags }) {
         </Search>
       )}
 
-      <div className="categories">
+      {/* <div className="categories">
 
         {categories && categories.map((item) => {
           return (
@@ -54,7 +54,7 @@ function Header({ search=true, tags }) {
             </span>
           );
         })}
-      </div>
+      </div> */}
     </HeaderContainer>
   );
 }

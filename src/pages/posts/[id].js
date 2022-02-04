@@ -6,6 +6,8 @@ import Header from "../../components/Header";
 import { useRouter } from "next/router";
 
 import { Banner, Content } from "../../styles/posts";
+import Loading from "../../components/Loading";
+import { Fade, Zoom } from "react-reveal";
 
 export default function PostComplete() {
   const [posts, setPosts] = useState([{}]);
@@ -40,16 +42,19 @@ export default function PostComplete() {
     return (
       <>
         <Header search={false} />
-        <Banner banner={thumb} />
-  
-        <Content>
-          <article id="post"></article>
-        </Content>
+
+        <Zoom>
+          <Banner banner={thumb} />
+        </Zoom>
+
+        <Fade>
+          <Content>
+            <article id="post"></article>
+          </Content>
+        </Fade>
       </>
     );
   } else {
-    return <span>loading...</span>
+    return <Loading />;
   }
-
-
 }

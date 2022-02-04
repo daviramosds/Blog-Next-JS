@@ -6,6 +6,7 @@ export const HeaderContainer = styled.header`
   align-items: center;
   padding: 15px 30px;
 
+/* 
   .categories {
     display: flex;
     display: flex;
@@ -21,7 +22,7 @@ export const HeaderContainer = styled.header`
       cursor: pointer;
       color: ${(props) => props.theme.colors.main};
     }
-  }
+  } */
 
   .title a {
     color: var(--background-color);
@@ -40,18 +41,12 @@ export const HeaderContainer = styled.header`
     }
   }
 
-  .subtitle span:hover {
-    transition: 0.2s;
-    color: var(--main-color);
-    cursor: pointer;
-  }
-
   @media screen and (max-width: 950px) {
     padding: 15px 20px;
 
-    .categories {
+    /* .categories {
       display: none;
-    }
+    } */
   }
 `;
 
